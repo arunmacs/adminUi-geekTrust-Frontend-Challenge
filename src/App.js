@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { GrNext, GrPrevious } from "react-icons/gr";
 import UserRow from "../src/components/UserRow";
 import PaginationButtons from "../src/components/PaginationButtons";
 import "./App.css";
@@ -84,8 +85,8 @@ class App extends Component {
 
   render() {
     const { usersData } = this.state;
-    const pageNumbers = this.getNumberOfPages();
-    console.log(pageNumbers, "pageNumbers");
+    const pageArrays = this.getNumberOfPages();
+    console.log(pageArrays, "pageNumbers");
 
     return (
       <div className="app">
@@ -100,9 +101,17 @@ class App extends Component {
           <button type="button" className="delete-selected">
             Delete Selected
           </button>
-          {/* <ul className="pagination-buttons-container">
-            <PaginationButtons />
-          </ul> */}
+          <ul className="pagination-buttons-container">
+            <button type="button" className="next-prev-buttons">
+              <GrPrevious />
+            </button>
+            {pageArrays.map((page) => (
+              <PaginationButtons key={page} page={page} />
+            ))}
+            <button type="button" className="next-prev-buttons">
+              <GrNext />
+            </button>
+          </ul>
         </footer>
       </div>
     );

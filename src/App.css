@@ -22,7 +22,7 @@
 
 .app-body-section {
   height: calc(100% - 50px);
-  padding: 15px 20px;
+  padding: 12px 20px;
 }
 
 .search-container {
@@ -90,6 +90,9 @@ td {
 
 footer {
   padding: 0px 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .delete-selected {
@@ -103,4 +106,27 @@ footer {
   border: none;
   cursor: pointer;
   outline: none;
+}
+
+.next-prev-buttons {
+  background-color: #1890ff;
+  height: 45px;
+  width: 45px;
+  margin: 0px 10px;
+  padding: 0px 5px;
+  font-size: 15px;
+  color: #ffffff;
+  border-radius: 28px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.pagination-buttons-container {
+  width: 60%;
+  padding: 0px;
+  margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
