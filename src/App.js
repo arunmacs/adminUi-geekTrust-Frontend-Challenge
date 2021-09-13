@@ -1,11 +1,17 @@
 import { Component } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { ImNext2, ImPrevious2 } from "react-icons/im";
 import UserRow from "../src/components/UserRow";
 import PaginationButtons from "../src/components/PaginationButtons";
 import "./App.css";
 
 class App extends Component {
-  state = { usersData: [], perPageUsers: [] };
+  state = {
+    usersData: [],
+    perPageUsers: [],
+    selectedButton: 1,
+    checkAll: false,
+  };
 
   componentDidMount() {
     this.getUsersData();
@@ -24,7 +30,7 @@ class App extends Component {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data, "Json Response");
+      // console.log(data, "Json Response");
 
       this.setState({ usersData: data, perPageUsers: data.slice(0, 10) });
     }
@@ -42,6 +48,36 @@ class App extends Component {
     return pageNumbers;
   };
 
+  setPerPageUsers = (page) => {
+    const { usersData } = this.state;
+    const startIndex = page * 10 - 10;
+    const endIndex = startIndex + 10;
+
+    this.setState({
+      perPageUsers: usersData.slice(startIndex, endIndex),
+      selectedButton: page,
+      checkAll: false,
+    });
+  };
+
+  toggleCheckboxes = () => {
+    this.setState((prevState) => ({ checkAll: !prevState.checkAll }));
+  };
+
+  toggleCheckbox = (id) => {};
+
+  deleteUser = (id) => {
+    this.setState((prevState) => ({
+      perPageUsers: prevState.perPageUsers.filter((user) => user.id !== id),
+    }));
+  };
+
+  deleteSelectedUsers = () => {
+    const { checkAll } = this.state;
+
+    checkAll && this.setState({ perPageUsers: [], checkAll: false });
+  };
+
   renderSearchBar = () => (
     <div className="search-container">
       <input
@@ -53,7 +89,7 @@ class App extends Component {
   );
 
   renderTable = () => {
-    const { perPageUsers } = this.state;
+    const { perPageUsers, checkAll } = this.state;
 
     return (
       <div className="table-container">
@@ -65,6 +101,8 @@ class App extends Component {
                   type="checkbox"
                   id="header-checkbox"
                   className="column-checkbox"
+                  onChange={this.toggleCheckboxes}
+                  checked={checkAll}
                 />
               </th>
               <th className="column-header">Name</th>
@@ -75,7 +113,13 @@ class App extends Component {
           </thead>
           <tbody>
             {perPageUsers.map((user) => (
-              <UserRow user={user} key={user.id} />
+              <UserRow
+                user={user}
+                checkAll={checkAll}
+                toggleCheckbox={this.toggleCheckbox}
+                deleteUser={this.deleteUser}
+                key={user.id}
+              />
             ))}
           </tbody>
         </table>
@@ -83,10 +127,48 @@ class App extends Component {
     );
   };
 
-  render() {
-    const { usersData } = this.state;
+  renderFooterSection = () => {
+    const { selectedButton } = this.state;
+
     const pageArrays = this.getNumberOfPages();
-    console.log(pageArrays, "pageNumbers");
+
+    return (
+      <footer>
+        <button
+          type="button"
+          onClick={this.deleteSelectedUsers}
+          className="delete-selected"
+        >
+          Delete Selected
+        </button>
+        <ul className="pagination-buttons-container">
+          <button type="button" className="next-prev-buttons">
+            <ImPrevious2 />
+          </button>
+          <button type="button" className="next-prev-buttons">
+            <GrPrevious />
+          </button>
+          {pageArrays.map((page) => (
+            <PaginationButtons
+              key={page}
+              setPerPageUsers={this.setPerPageUsers}
+              isActive={selectedButton === page}
+              page={page}
+            />
+          ))}
+          <button type="button" className="next-prev-buttons">
+            <GrNext />
+          </button>
+          <button type="button" className="next-prev-buttons">
+            <ImNext2 />
+          </button>
+        </ul>
+      </footer>
+    );
+  };
+
+  render() {
+    // const { usersData, perPageUsers } = this.state;
 
     return (
       <div className="app">
@@ -97,22 +179,7 @@ class App extends Component {
           {this.renderSearchBar()}
           {this.renderTable()}
         </section>
-        <footer>
-          <button type="button" className="delete-selected">
-            Delete Selected
-          </button>
-          <ul className="pagination-buttons-container">
-            <button type="button" className="next-prev-buttons">
-              <GrPrevious />
-            </button>
-            {pageArrays.map((page) => (
-              <PaginationButtons key={page} page={page} />
-            ))}
-            <button type="button" className="next-prev-buttons">
-              <GrNext />
-            </button>
-          </ul>
-        </footer>
+        {this.renderFooterSection()}
       </div>
     );
   }

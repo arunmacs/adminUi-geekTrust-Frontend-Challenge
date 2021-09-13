@@ -93,6 +93,10 @@ footer {
   width: 100%;
   display: flex;
   align-items: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 
 .delete-selected {
@@ -110,11 +114,11 @@ footer {
 
 .next-prev-buttons {
   background-color: #1890ff;
-  height: 45px;
-  width: 45px;
+  height: 42px;
+  width: 42px;
   margin: 0px 10px;
-  padding: 0px 5px;
-  font-size: 15px;
+  padding: 10px 8px;
+  font-size: 20px;
   color: #ffffff;
   border-radius: 28px;
   border: none;
@@ -129,4 +133,15 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.selected-button {
+  background-color: #fff;
+  color: #1890ff;
+  border: 1px solid #1890ff;
+}
+
+.next-prev-buttons-disabled {
+  background-color: #f5f5f5;
+  border: 1px solid #dbdbdb;
 }

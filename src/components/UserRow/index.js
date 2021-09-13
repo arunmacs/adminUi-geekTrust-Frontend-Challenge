@@ -3,18 +3,29 @@ import { AiOutlineDelete } from "react-icons/ai";
 import "./index.css";
 
 const UserRow = (props) => {
-  //   console.log(props);
-  const { user } = props;
+  const { user, deleteUser, toggleCheckbox, checkAll } = props;
   const { name, id, email, role } = user;
 
-  const deleteUserRow = () => {};
+  const deleteUserRow = () => {
+    deleteUser(id);
+  };
 
   const editUserRow = () => {};
+
+  const onClickToggleCheckbox = () => {
+    toggleCheckbox(id);
+  };
 
   return (
     <tr>
       <td>
-        <input type="checkbox" id={id} className="column-checkbox" />
+        <input
+          type="checkbox"
+          id={id}
+          className="column-checkbox"
+          checked={checkAll}
+          onChange={onClickToggleCheckbox}
+        />
       </td>
       <td>{name}</td>
       <td>{email}</td>
