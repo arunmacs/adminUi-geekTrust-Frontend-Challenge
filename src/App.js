@@ -291,7 +291,7 @@ class App extends Component {
   };
 
   getStatusView = () => {
-    const { dataViewStatus, perPageUsers } = this.state;
+    const { dataViewStatus } = this.state;
 
     switch (dataViewStatus) {
       case viewStatus.inProgress:
@@ -308,7 +308,7 @@ class App extends Component {
   };
 
   render() {
-    const { usersData, perPageUsers, search } = this.state;
+   // const { usersData, perPageUsers, search } = this.state;
     console.log("Render");
 
     return (
