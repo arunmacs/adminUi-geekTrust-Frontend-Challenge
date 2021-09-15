@@ -18,7 +18,7 @@ const viewStatus = {
 class App extends Component {
   state = {
     dataViewStatus: viewStatus.initial,
-    masterCopyData: [],
+    masterCopyUsersData: [],
     usersData: [],
     perPageUsers: [],
     search: "",
@@ -54,7 +54,7 @@ class App extends Component {
       }));
 
       this.setState({
-        masterCopyData: formattedData,
+        masterCopyUsersData: formattedData,
         usersData: formattedData,
         perPageUsers: formattedData.slice(0, 10),
         dataViewStatus: viewStatus.dataView,
@@ -126,10 +126,10 @@ class App extends Component {
   };
 
   enterSearchQuery = (event) => {
-    const { search, masterCopyData } = this.state;
+    const { search, masterCopyUsersData } = this.state;
 
     if (event.key === "Enter") {
-      const searchResultData = masterCopyData.filter((user) => {
+      const searchResultData = masterCopyUsersData.filter((user) => {
         const userName = user.name.toLowerCase().includes(search.toLowerCase());
         const userEmail = user.email
           .toLowerCase()
@@ -292,9 +292,6 @@ class App extends Component {
           className="no-data-image"
         />
         <h2>No, Data Found</h2>
-        <button type="button" onClick={this.getUsersData} className="retry">
-          Retry
-        </button>
       </div>
     );
   };
