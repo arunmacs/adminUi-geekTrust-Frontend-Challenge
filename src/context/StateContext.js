@@ -5,6 +5,7 @@ const StateContext = React.createContext({
   toggleCheckboxes: () => {},
   deleteUser: () => {},
   setPerPageUsers: () => {},
+  all:0;
 });
 
 export default StateContext;
