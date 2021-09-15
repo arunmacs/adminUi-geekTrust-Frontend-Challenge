@@ -152,6 +152,29 @@ class App extends Component {
     }
   };
 
+  goToFirstPage = () => {
+    this.setPerPageUsers(1);
+  };
+
+  goToPreviousPage = () => {
+    const { selectedButton } = this.state;
+    // const pageNumbers = this.getNumberOfPages().length;
+    const prevPage = selectedButton - 1;
+    this.setPerPageUsers(prevPage > 1 ? prevPage : 1);
+  };
+
+  goToLastPage = () => {
+    const lastPage = this.getNumberOfPages().length;
+    this.setPerPageUsers(lastPage);
+  };
+
+  goToNextPage = () => {
+    const { selectedButton } = this.state;
+    const pageNumbers = this.getNumberOfPages().length;
+    const nextPage = selectedButton + 1;
+    this.setPerPageUsers(nextPage < pageNumbers ? nextPage : pageNumbers);
+  };
+
   renderSearchBar = () => {
     const { search } = this.state;
 
@@ -225,10 +248,18 @@ class App extends Component {
           Delete Selected
         </button>
         <ul className="pagination-buttons-container">
-          <button type="button" className="next-prev-buttons">
+          <button
+            type="button"
+            onClick={this.goToFirstPage}
+            className="next-prev-buttons"
+          >
             <ImPrevious2 />
           </button>
-          <button type="button" className="next-prev-buttons">
+          <button
+            type="button"
+            onClick={this.goToPreviousPage}
+            className="next-prev-buttons"
+          >
             <GrPrevious />
           </button>
           {pageArrays.map((page) => (
@@ -239,10 +270,18 @@ class App extends Component {
               page={page}
             />
           ))}
-          <button type="button" className="next-prev-buttons">
+          <button
+            type="button"
+            onClick={this.goToNextPage}
+            className="next-prev-buttons"
+          >
             <GrNext />
           </button>
-          <button type="button" className="next-prev-buttons">
+          <button
+            type="button"
+            onClick={this.goToLastPage}
+            className="next-prev-buttons"
+          >
             <ImNext2 />
           </button>
         </ul>
