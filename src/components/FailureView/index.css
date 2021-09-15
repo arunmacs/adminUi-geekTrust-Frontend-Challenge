@@ -1,0 +1,13 @@
+.no-data-view {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 5px 15px 5px;
+}
+
+.no-data-image {
+  height: 350px;
+  width: 350px;
+}

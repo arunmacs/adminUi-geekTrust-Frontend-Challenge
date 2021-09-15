@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { ImNext2, ImPrevious2 } from "react-icons/im";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import LoaderView from "../src/components/LoaderView";
+import NoDataView from "../src/components/NoDataView";
+import FailureView from "../src/components/FailureView";
 import UserRow from "../src/components/UserRow";
 import PaginationButtons from "../src/components/PaginationButtons";
 import "./App.css";
@@ -294,60 +295,16 @@ class App extends Component {
 
     switch (dataViewStatus) {
       case viewStatus.inProgress:
-        return this.renderLoaderAnimation();
+        return <LoaderView />;
       case viewStatus.dataView:
-        return perPageUsers.length !== 0
-          ? this.renderTable()
-          : this.renderNoDataView();
+        return this.renderTable();
       case viewStatus.noDataView:
-        return this.renderNoDataView();
+        return <NoDataView />;
       case viewStatus.failure:
-        return this.renderFailureView();
+        return <FailureView />;
       default:
         return null;
     }
-  };
-
-  renderLoaderAnimation = () => (
-    <div className="loader">
-      <Loader
-        type="Oval"
-        className="loader"
-        color="#00bfff"
-        height={80}
-        width={80}
-      />
-    </div>
-  );
-
-  renderNoDataView = () => {
-    console.log();
-
-    return (
-      <div className="no-data-view">
-        <img
-          src="https://image.freepik.com/free-vector/no-data-concept-illustration_114360-695.jpg"
-          alt="No Data View"
-          className="no-data-image"
-        />
-        <h2>No, Data Found</h2>
-      </div>
-    );
-  };
-
-  renderFailureView = () => {
-    console.log();
-
-    return (
-      <div className="no-data-view">
-        <img
-          src="https://image.freepik.com/free-vector/error-404-concept-landing-page_52683-18756.jpg"
-          alt="Failure View"
-          className="no-data-image"
-        />
-        <h2>Oops... Something Went Wrong, connection Lost</h2>
-      </div>
-    );
   };
 
   render() {
