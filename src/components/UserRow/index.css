@@ -26,3 +26,7 @@ td {
 .delete {
   color: #ff0000;
 }
+
+.selected-row {
+  background-color: #99a7b2;
+}

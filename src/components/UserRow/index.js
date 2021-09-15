@@ -3,8 +3,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import "./index.css";
 
 const UserRow = (props) => {
-  const { user, deleteUser, toggleCheckbox, checkAll } = props;
-  const { name, id, email, role } = user;
+  const { user, deleteUser, toggleCheckbox } = props;
+  const { name, id, email, role, checked } = user;
+
+  const select = checked ? "selected-row" : "";
 
   const deleteUserRow = () => {
     deleteUser(id);
@@ -17,13 +19,13 @@ const UserRow = (props) => {
   };
 
   return (
-    <tr>
+    <tr className={`${select}`}>
       <td>
         <input
           type="checkbox"
           id={id}
           className="column-checkbox"
-          checked={checkAll}
+          checked={checked}
           onChange={onClickToggleCheckbox}
         />
       </td>
